@@ -1,0 +1,284 @@
+
+/* styles.css - High-level, responsive CSS for FINAL DEVOPS PROJECT */
+
+/* -------------------------
+   Variables / Base
+   ------------------------- */
+:root{
+  --bg: #f6f8ff;
+  --card: #ffffff;
+  --accent: #0b62ff;
+  --muted: #6b7280;
+  --glass: rgba(255,255,255,0.6);
+  --radius: 12px;
+  --max-width: 1100px;
+  --gap: 24px;
+  --flow-space: 16px;
+}
+
+/* Reset-ish */
+* { box-sizing: border-box; }
+html,body { height:100%; margin:0; font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif; color:#0f1724; background: linear-gradient(180deg, var(--bg), #eef3ff); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+img,video { max-width:100%; display:block; }
+
+/* -------------------------
+   Layout container
+   ------------------------- */
+.wrap {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 40px 16px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, rgba(11,98,255,0.08), rgba(11,98,255,0.02));
+  box-shadow: 0 6px 20px rgba(11,98,255,0.04);
+}
+.header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 3.2vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* -------------------------
+   Demo section grid
+   ------------------------- */
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--gap);
+  align-items: start;
+  padding: 18px;
+}
+
+/* Make layout single-column on small screens */
+@media (max-width: 880px) {
+  .demo-grid { grid-template-columns: 1fr; }
+}
+
+/* Video wrapper (card) */
+.video-wrap {
+  position: relative;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15,23,36,0.06);
+}
+
+/* Native video element */
+.video {
+  width: 100%;
+  height: auto;
+  display:block;
+  background: #000;
+}
+
+/* Overlay play button (centered) */
+.overlay-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity .2s ease;
+  opacity: 0;                /* hidden by default - show on hover */
+  pointer-events: none;      /* allow clicking native controls */
+}
+.video-wrap:hover .overlay-play,
+.video-wrap:focus-within .overlay-play {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Smaller circle for the svg - accessible focus */
+.overlay-play svg circle { transition: fill .12s ease; }
+.overlay-play:focus { outline: 3px solid rgba(11,98,255,0.18); border-radius: 999px; }
+
+/* Make overlay button visible on small devices always (better tap target) */
+@media (max-width: 600px) {
+  .overlay-play { opacity: 1; pointer-events: auto; }
+}
+
+/* Info panel */
+/* Info panel */
+.info {
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), var(--glass));
+  border-radius: 16px;
+  padding: 40px;                 /* increased from 30px */
+  box-shadow: 0 8px 24px rgba(15,23,36,0.06);
+  color: #0b1726;
+  font-size: 16px;
+  line-height: 1.55;
+
+  /* 🔥 Added for bigger right-side box */
+  width: 520px;                  /* increased width */
+  min-height: 560px;             /* increased height */
+}
+
+.info h3 { 
+  margin: 0 0 10px; 
+  font-size: 22px; 
+}
+
+.info h4 { 
+  margin-top: 14px; 
+  margin-bottom: 8px; 
+  font-size: 17px; 
+}
+
+.info ol { 
+  padding-left: 22px; 
+  margin-top: 10px; 
+  color: var(--muted); 
+}
+
+/* Muted small text */
+.muted { 
+  color: var(--muted); 
+  font-size: 14px; 
+}
+
+/* -------------------------
+   Utility helpers
+   ------------------------- */
+button { font: inherit; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus { 
+  outline: 3px solid rgba(11,98,255,0.16); 
+  outline-offset: 2px; 
+  border-radius: 6px; 
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .wrap { padding: 18px; }
+  .info { 
+    padding: 22px;
+    width: 100%;        /* responsive */
+    min-height: auto;
+  }
+}
+
+/* -------------------------
+   Optional: subtle loading shimmer for poster area
+   ------------------------- */
+.video-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 100%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Image row inside the video card */
+.image-row {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+  flex-wrap: wrap;      /* Makes it responsive */
+}
+
+.image-row img {
+  width: 360px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Two-column image layout */
+.image-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-col {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 16px;
+}
+
+.image-col img {
+  width: 120%;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Mobile view: stack columns */
+@media (max-width: 1000px) {
+  .image-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2x2 image grid */
+.image-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    padding: 20px;
+}
+
+.image-grid-2x2 img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;  /* Shows full image */
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    background: #fff;    /* Prevents black bars */
+    padding: 4px;        /* Clean framing */
+}
+
+/* Mobile view: stack all 4 vertically */
+@media (max-width: 850px) {
+    .image-grid-2x2 {
+        grid-template-columns: 1fr;
+    }
+}
+/* Image inside info panel (below summary text) */
+.info-bottom-image {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.info-bottom-image img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.info-image-caption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
