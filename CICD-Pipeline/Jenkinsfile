@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_CREDS    = credentials('dockerhub-creds')
+        DOCKER_CREDS    = credentials('Dockerhub')
         KUBECONFIG_DATA = credentials('k3s-config')
-        IMAGE_NAME      = "deena7/project1"
+        IMAGE_NAME      = "arunraj30/CICD"
     }
 
     stages {
@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Deena7/27cicd-project'
+                    url: 'https://github.com/Arunraj-AP/DevOps_projects.git'
             }
         }
         stage('Build Docker Image') {
@@ -25,7 +25,7 @@ pipeline {
      stage('Login to DockerHub') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
+                    credentialsId: 'Dockerhub',
                     usernameVariable: 'USER',
                     passwordVariable: 'PASS'
                 )]) {
