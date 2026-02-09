@@ -43,13 +43,6 @@ pipeline {
                 """
             }
         }
-     stage('Update YAML With New Image') {
-            steps {
-                sh """
-                  sed -i 's|image:.*|image: ${IMAGE_NAME}:${BUILD_NUMBER}|g' deployment.yaml
-                """
-            }
-        }
 
         stage('Deploy to K3s') {
             steps {
