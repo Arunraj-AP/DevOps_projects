@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDS    = credentials('Dockerhub')
         KUBECONFIG_DATA = credentials('k3s-config')
-        IMAGE_NAME      = "arunraj30/cicd"
+        IMAGE_NAME      = "arunraj30/CICD"
     }
 
     stages {
@@ -40,6 +40,13 @@ pipeline {
             steps {
                 sh """
                   docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+                """
+            }
+        }
+     stage('Update YAML With New Image') {
+            steps {
+                sh """
+                  sed -i 's|image:.*|image: ${IMAGE_NAME}:${BUILD_NUMBER}|g' deployment.yaml
                 """
             }
         }
