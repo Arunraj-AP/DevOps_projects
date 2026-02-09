@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Arunraj-AP/DevOps_projects.git'
+                    url: 'https://github.com/Arunraj-AP/DevOps_projects'
             }
         }
         stage('Build Docker Image') {
