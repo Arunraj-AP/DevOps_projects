@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDS    = credentials('Dockerhub')
         KUBECONFIG_DATA = credentials('k3s-config')
-        IMAGE_NAME      = "arunraj30/CICD"
+        IMAGE_NAME      = "arunraj30/cicd"
     }
 
     stages {
